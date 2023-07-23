@@ -1,0 +1,24 @@
+---
+curity:
+  admin:
+    initContainers:
+      - args:
+          - '-service=curity-mysqldb'
+          - '-job=curity-schema-schema'
+        image: opsfleet/depends-on
+        imagePullPolicy: IfNotPresent
+        name: wait-for-first
+  config:
+    password: Passw0rd
+    uiEnabled: true
+  runtime:
+    initContainers:
+      - args:
+          - '-service=curity-mysqldb'
+          - '-job=curity-schema-schema'
+        image: opsfleet/depends-on
+        imagePullPolicy: IfNotPresent
+        name: wait-for-first
+image:
+  repository: image(idsvr)
+  tag: tag(idsvr)

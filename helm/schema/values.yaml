@@ -1,0 +1,20 @@
+---
+annotations: false
+dbService:
+  name: mysqldb
+  releaseNameOverride: null
+image:
+  imagePullPolicy: IfNotPresent
+  repository: devspace-curity-quickstart/schema
+  tag: 8.3.1
+imagePullSecrets: []
+liquibase:
+  changelog_file: changelog/8.3.1/mysql/install/changelog.xml
+  cmd: update
+  driver: com.mysql.cj.jdbc.Driver
+  log_level: FINE
+  password: Passw0rd
+  username: curity
+serviceAccount:
+  create: true
+  name: null

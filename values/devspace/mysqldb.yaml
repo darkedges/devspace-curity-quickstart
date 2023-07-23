@@ -1,0 +1,13 @@
+---
+auth:
+  database: curity
+  password: Passw0rd
+  rootPassword: Passw0rd
+  username: curity
+enabled: true
+image:
+  debug: true
+primary:
+  extraFlags: '--log_bin_trust_function_creators=1'
+  persistence:
+    enabled: false

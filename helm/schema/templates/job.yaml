@@ -1,0 +1,49 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: liquibase
+    chart: {{ template "forgerock.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  {{- if .Values.annotations }}
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade
+    "helm.sh/hook-weight": "-1"
+    "helm.sh/hook-delete-policy": hook-succeeded
+  {{- end}}
+spec:
+  template:
+    spec:
+      {{- if .Values.imagePullSecrets }}
+      imagePullSecrets: {{ toYaml .Values.imagePullSecrets | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ template "forgerock.serviceAccountName" . }}
+      initContainers:
+        - name: wait-for-first
+          image: opsfleet/depends-on
+          imagePullPolicy: {{ .Values.image.imagePullPolicy }}
+          {{ template "forgerock.waitfor". }}
+      containers:
+      - name: liquibase
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        imagePullPolicy: {{ .Values.image.imagePullPolicy }}
+        env:
+        - name: DRIVER
+          value: {{ .Values.liquibase.driver }}
+        - name: URL
+          value: "jdbc:mysql://{{ template "forgerock.serviceName" (list "mysqldb" .) }}:3306/{{ .Values.liquibase.username }}"
+        - name: USERNAME
+          value: {{ .Values.liquibase.username }}
+        - name: PASSWORD
+          value: {{ .Values.liquibase.password }}
+        - name: CHANGELOG_FILE
+          value: {{ .Values.liquibase.changelog_file }}
+        - name: LOG_LEVEL
+          value: {{ .Values.liquibase.log_level }}
+        - name: CMD
+          value: {{ .Values.liquibase.cmd }}
+      restartPolicy: Never
+  backoffLimit: 4

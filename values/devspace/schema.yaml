@@ -1,0 +1,9 @@
+---
+image:
+  repository: image(schema)
+  tag: tag(schema)
+services:
+  mysqldb:
+    name: mysqldb
+    releaseNameOverride: curity
+    waitfor: service

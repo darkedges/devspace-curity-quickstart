@@ -1,0 +1,25 @@
+version: '3.2'
+services:
+  admin:
+    image: curity.azurecr.io/curity/idsvr
+    # command: [ "sh", "-c", "idsvr -s admin" ]
+    environment:
+      - PASSWORD=Passw0rd
+      - SERVICE_ROLE=default
+      # - CONFIG_ENCRYPTION_KEY="Passw0rd" # optional
+    ports:
+      - 6749:6749
+      - 8443:8443
+    # volumes:
+    #   - ./cluster-conf.xml:/opt/idsvr/etc/init/cluster-conf.xml
+    # runtime:
+    #   image: curity.azurecr.io/curity/idsvr
+    #   volumes:
+    #     - ./cluster-conf.xml:/opt/idsvr/etc/init/cluster-conf.xml
+    #   environment:
+    #     - SERVICE_ROLE=default
+    #     - CONFIG_ENCRYPTION_KEY="Passw0rd" # optional
+    #   ports:
+    #     - 8443:8443
+    #   depends_on:
+    #     - admin

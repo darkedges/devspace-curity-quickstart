@@ -1,0 +1,55 @@
+---
+deployments:
+  curity-idsvr:
+    helm:
+      chart:
+        name: idsvr
+        repo: https://curityio.github.io/idsvr-helm/
+      valuesFiles:
+        - values/devspace/curity.yaml
+  curity-mysqldb:
+    helm:
+      chart:
+        name: mysql
+        repo: https://charts.bitnami.com/bitnami
+        version: 9.10.8
+      valuesFiles:
+        - values/devspace/mysqldb.yaml
+  curity-schema:
+    helm:
+      chart:
+        name: helm/schema
+      valuesFiles:
+        - values/devspace/schema.yaml
+  curity-serviceaccount:
+    kubectl:
+      manifests:
+        - kubectl/idsvr/serviceaccount.yaml
+dev:
+  admin:
+    labelSelector:
+      role: curity-idsvr-admin
+    ports:
+      - port: '6749'
+  mysql:
+    labelSelector:
+      app.kubernetes.io/component: primary
+      app.kubernetes.io/instance: curity-mysqldb
+    ports:
+      - port: '3306'
+  runtime:
+    labelSelector:
+      role: curity-idsvr-runtime
+    ports:
+      - port: '8443'
+images:
+  idsvr:
+    context: docker/idsvr
+    dockerfile: docker/idsvr/Dockerfile
+    image: devspace-curity-quickstart/idsvr
+  schema:
+    context: docker/schema
+    dockerfile: docker/schema/Dockerfile
+    image: devspace-curity-quickstart/schema
+name: curity
+version: v2beta1
