@@ -51,5 +51,6 @@ images:
     context: docker/schema
     dockerfile: docker/schema/Dockerfile
     image: devspace-curity-quickstart/schema
+    buildKit: {}
 name: curity
 version: v2beta1

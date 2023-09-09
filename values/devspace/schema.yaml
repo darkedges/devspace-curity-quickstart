@@ -2,6 +2,8 @@
 image:
   repository: image(schema)
   tag: tag(schema)
+liquibase:
+  changelog_file: changelog/mysql/quickstart_install.xml
 services:
   mysqldb:
     name: mysqldb

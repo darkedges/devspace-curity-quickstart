@@ -12,7 +12,7 @@ cd devspace-curity-quickstart
 
 # To build
 
-docker build -t devspace-curity-quickstart/schema:8.3.1 docker/schema
+docker build -t devspace-curity-quickstart/schema:8.4.1 --build-arg CURITY_TAG=8.4.1 docker/schema
 ```
 
 ## Run
@@ -21,7 +21,7 @@ docker build -t devspace-curity-quickstart/schema:8.3.1 docker/schema
 
 ```console
 docker run -it --rm --name dcq-db -e "MYSQL_ROOT_PASSWORD=Passw0rd" -e "MYSQL_DATABASE=curity" -e "MYSQL_USER=curity" -e "MYSQL_PASSWORD=Passw0rd" --publish 3306:3306 mysql:8.0.33-oracle --log_bin_trust_function_creators=1
-docker run -it --rm --link dcq-db:dcq-db --publish 8080:8080  -e "DRIVER=com.mysql.cj.jdbc.Driver" -e "URL=jdbc:mysql://dcq-db:3306/curity"-e "USERNAME=curity" -e "PASSWORD=Passw0rd" -e "CHANGELOG_FILE=changelog/8.3.1/mysql/install/changelog.xml" -e "LOG_LEVEL=INFO" -e "CMD=update" devspace-curity-quickstart/schema:8.3.1
+docker run -it --rm --link dcq-db:dcq-db --publish 8080:8080  -e "DRIVER=com.mysql.cj.jdbc.Driver" -e "URL=jdbc:mysql://dcq-db:3306/curity"-e "USERNAME=curity" -e "PASSWORD=Passw0rd" -e "CHANGELOG_FILE=changelog/mysql/install.xml" -e "LOG_LEVEL=INFO" -e "CMD=update" devspace-curity-quickstart/schema:8.4.1
 ```
 
 ### Explore

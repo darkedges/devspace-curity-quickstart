@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet author="nirving" id="create_database.sql">
+      <sqlFile dbms="mysql" endDelimiter=";"
+               path="create_database.sql"
+               relativeToChangelogFile="true" splitStatements="true" stripComments="false"/>
+      <sqlFile dbms="mysql" endDelimiter=";"
+               path="quickstart_install.sql"
+               relativeToChangelogFile="true" splitStatements="true" stripComments="false"/>
+    </changeSet>
+</databaseChangeLog>

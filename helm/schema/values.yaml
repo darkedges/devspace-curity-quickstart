@@ -9,12 +9,13 @@ image:
   tag: 8.3.1
 imagePullSecrets: []
 liquibase:
-  changelog_file: changelog/8.3.1/mysql/install/changelog.xml
+  changelog_file: changelog/mysql/install.xml
   cmd: update
   driver: com.mysql.cj.jdbc.Driver
   log_level: FINE
   password: Passw0rd
   username: curity
+  database: idsvr
 serviceAccount:
   create: true
   name: null

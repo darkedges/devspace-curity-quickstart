@@ -34,7 +34,7 @@ spec:
         - name: DRIVER
           value: {{ .Values.liquibase.driver }}
         - name: URL
-          value: "jdbc:mysql://{{ template "forgerock.serviceName" (list "mysqldb" .) }}:3306/{{ .Values.liquibase.username }}"
+          value: "jdbc:mysql://{{ template "forgerock.serviceName" (list "mysqldb" .) }}:3306/{{ .Values.liquibase.database }}"
         - name: USERNAME
           value: {{ .Values.liquibase.username }}
         - name: PASSWORD

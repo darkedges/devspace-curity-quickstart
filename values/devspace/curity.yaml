@@ -1,6 +1,24 @@
 ---
+replicaCount: 1
+
+image:
+  repository: image(idsvr)
+  tag: tag(idsvr)
+
 curity:
   admin:
+    logging:
+      level: INFO
+    initContainers:
+      - args:
+          - '-service=curity-mysqldb'
+          - '-job=curity-schema-schema'
+        image: opsfleet/depends-on
+        imagePullPolicy: IfNotPresent
+        name: wait-for-first
+  runtime:
+    logging:
+      level: INFO
     initContainers:
       - args:
           - '-service=curity-mysqldb'
@@ -9,16 +27,19 @@ curity:
         imagePullPolicy: IfNotPresent
         name: wait-for-first
   config:
-    password: Passw0rd
     uiEnabled: true
+    password: Passw0rd
+
+ingress:
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    cert-manager.io/cluster-issuer: vault-issuer
   runtime:
-    initContainers:
-      - args:
-          - '-service=curity-mysqldb'
-          - '-job=curity-schema-schema'
-        image: opsfleet/depends-on
-        imagePullPolicy: IfNotPresent
-        name: wait-for-first
-image:
-  repository: image(idsvr)
-  tag: tag(idsvr)
+    enabled: true
+    host: login.curity.7f000001.nip.io
+    secretName: curity-login-tls
+  admin:
+    enabled: true
+    host: admin.curity.7f000001.nip.io
+    secretName: curity-admin-tls

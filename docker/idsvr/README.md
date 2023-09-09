@@ -2,6 +2,14 @@
 
 This is a Curity container, based on [Curity](https://www.curity.io/)
 
+## Pre-requisites
+
+- requires a MySQL Database installed and Schema deployed. Follow the documentation in [schema/README.md](../schema/README.md)
+- A license file that can be downloade from [https://developer.curity.io/licenses](https://developer.curity.io/licenses)
+  - Create a new license by clicking `Request a new license`
+  - Download an existing license to [idsvr/license.json](idsvr/license.json)
+
+
 ## Build
 
 To build the container:
@@ -14,10 +22,6 @@ cd devspace-curity-quickstart
 
 docker build -t devspace-curity-quickstart/idsvr:8.3.1 docker/idsvr
 ```
-
-## Pre-requisites
-
-requires a MySQL Database installed and Schema deployed. Follow the documentation in [schema/README.md](../schema/README.md)
 
 ## Run
 

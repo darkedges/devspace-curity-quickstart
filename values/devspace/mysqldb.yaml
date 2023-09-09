@@ -1,6 +1,6 @@
 ---
 auth:
-  database: curity
+  database: idsvr
   password: Passw0rd
   rootPassword: Passw0rd
   username: curity
